@@ -65,7 +65,7 @@ Socket Socket::accept() {
 }
 
 void Socket::connect(const sockaddr_in &address) {
-  if(::connect(fd_, (sockaddr*)&address, sizeof(address)) < 0) {
+  if (::connect(fd_, (sockaddr*)&address, sizeof(address)) < 0) {
       throw std::runtime_error("connect failed");
   }
 }

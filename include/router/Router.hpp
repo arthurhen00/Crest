@@ -1,15 +1,11 @@
 #pragma once
 
-#include "http/HttpRequest.hpp"
-#include "http/HttpResponse.hpp"
+#include "Route.hpp"
+#include "RouteMatcher.hpp"
 
-#include <functional>
-#include <unordered_map>
-#include <string>
+#include <vector>
 
 namespace router {
-
-using Handler = std::function<void(http::HttpRequest&, http::HttpResponse&)>;
 
 class Router {
 public:
@@ -18,8 +14,8 @@ public:
 
   bool handle(http::HttpRequest &request, http::HttpResponse &response);
 private:
-  std::unordered_map<std::string, Handler> routes_;
-  std::string makeKey(const std::string &method, const std::string &path);
+  std::vector<Route> routes_;
+  RouteMatcher matcher_;
 };
 
 }

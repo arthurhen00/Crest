@@ -13,6 +13,9 @@ public:
 private:
   void parseStartLine(const std::string &line, HttpRequest &request);
   void parseHeader(const std::string &line, HttpRequest &request);
+  void parseUrl(HttpRequest &request);
+  void parseQuery(const std::string &query, HttpRequest &request);
+
 };
 
 }

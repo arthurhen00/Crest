@@ -16,7 +16,7 @@ void TcpServer::start(Handler handler) {
   socket_.bind(address);
   socket_.listen(10);
 
-  while( 1 ) {
+  while ( 1 ) {
     Socket clientSocket = socket_.accept();
 
     TcpConnection connection(std::move(clientSocket));

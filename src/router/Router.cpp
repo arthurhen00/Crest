@@ -1,33 +1,37 @@
 #include "router/Router.hpp"
 
+#include <iostream>
+
 namespace router {
 
-std::string Router::makeKey(const std::string &method, const std::string &path) {
-  return method + ":" + path;
-}
-
 void Router::get(const std::string &path, Handler handler) {
-  routes_[makeKey("GET", path)] = handler;
+  std::cout << "[Router] register " << "GET " << path << std::endl;
+
+  routes_.push_back({"GET", path, handler});
 }
 
 void Router::post(const std::string &path, Handler handler) {
-  routes_[makeKey("POST", path)] = handler;
+  std::cout << "[Router] register " << "POST " << path << std::endl;
+
+  routes_.push_back({"POST", path, handler});
 }
 
 bool Router::handle(http::HttpRequest &request, http::HttpResponse &response) {
-  auto key = makeKey(request.method, request.path);
-  auto it = routes_.find(key);
+  std::cout << "[Router] method=" << request.method << " path=" << request.path << std::endl;
 
-  if (it == routes_.end()) {
-    response.status(404);
-    response.body("Route not found");
+  for (auto& route : routes_) {
+    request.params.clear();
 
-    return false;
+    if (matcher_.match(route, request)) {
+      route.handler(request, response);
+      return true;
+    }
   }
 
-  it->second(request, response);
+  response.status(404);
+  response.body("Route not found");
 
-  return true;
+  return false;
 }
 
 }

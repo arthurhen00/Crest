@@ -27,6 +27,7 @@ set(SOURCES
     src/network/TcpServer.cpp
     src/network/TcpConnection.cpp
 
+    src/router/RouteMatcher.cpp
     src/router/Router.cpp
 )
 
