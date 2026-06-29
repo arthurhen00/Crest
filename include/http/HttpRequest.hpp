@@ -8,6 +8,7 @@ namespace http {
 class HttpRequest {
 public:
   std::string method;
+  std::string url;
   std::string path;
   std::string version;
 
@@ -18,7 +19,9 @@ public:
   std::string body;
 
   std::string getHeader(const std::string &key) const;
-  bool hasHeader(const std::string &key) const;
+  std::string getParam(const std::string &key) const;
+  std::string getQuery(const std::string &key) const;
+
 };
 
 }

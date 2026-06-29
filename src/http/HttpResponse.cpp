@@ -19,7 +19,7 @@ void HttpResponse::json(const std::string &content) {
 }
 
 std::string HttpResponse::statusMessage() const {
-  switch(status_) {
+  switch (status_) {
     case 200:
       return "OK";
 

@@ -46,7 +46,8 @@ HttpRequest HttpParser::parse(const std::string &raw) {
 
 void HttpParser::parseStartLine(const std::string &line, HttpRequest &request) {
   std::stringstream ss(line);
-  ss >> request.method >> request.path >> request.version;
+  ss >> request.method >> request.url >> request.version;
+  request.path = request.url;
 }
 
 
