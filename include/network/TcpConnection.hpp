@@ -18,9 +18,12 @@ public:
   void write(const std::string &data);
 
   SocketType getFd() const;
+  std::string getIp() const;
+  int getPort() const;
 
 private:
   Socket socket_;
+
 };
 
 }

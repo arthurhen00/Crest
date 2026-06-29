@@ -16,6 +16,10 @@ void HttpServer::start() {
 void HttpServer::handle(network::TcpConnection &connection) {
   auto raw = connection.read();
   auto request = parser_.parse(raw);
+
+  request.remoteAddress = connection.getIp();
+  request.remotePort = connection.getPort();
+
   HttpResponse response;
 
   app_.handle(request, response);

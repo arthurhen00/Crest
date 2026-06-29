@@ -12,6 +12,9 @@ public:
   std::string path;
   std::string version;
 
+  std::string remoteAddress;
+  int remotePort;
+
   std::unordered_map<std::string, std::string> headers;
   std::unordered_map<std::string, std::string> params;
   std::unordered_map<std::string, std::string> query;

@@ -1,5 +1,8 @@
 #include "network/TcpConnection.hpp"
 
+#include <arpa/inet.h>
+#include <sys/socket.h>
+
 namespace network {
 
 TcpConnection::TcpConnection(Socket socket) 
@@ -26,6 +29,28 @@ void TcpConnection::write(const std::string &data) {
 
 SocketType TcpConnection::getFd() const {
   return socket_.getFd();
+}
+
+std::string TcpConnection::getIp() const {
+  sockaddr_in addr{};
+  socklen_t len = sizeof(addr);
+
+  if (getpeername(socket_.getFd(), (sockaddr*)&addr, &len) < 0) {
+    return "unknown";
+  }
+
+  return inet_ntoa(addr.sin_addr);
+}
+
+int TcpConnection::getPort() const {
+  sockaddr_in addr{};
+  socklen_t len = sizeof(addr);
+
+  if (getpeername(socket_.getFd(), (sockaddr*)&addr, &len) < 0) {
+    return -1;
+  }
+
+  return ntohs(addr.sin_port);
 }
 
 }
