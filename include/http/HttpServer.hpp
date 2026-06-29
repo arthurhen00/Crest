@@ -2,18 +2,18 @@
 
 #include "network/TcpServer.hpp"
 #include "http/HttpParser.hpp"
-#include "router/Router.hpp"
+#include "app/Application.hpp"
 
 namespace http {
 
 class HttpServer {
 public:
-  HttpServer(int port, router::Router &router);
+  HttpServer(int port, app::Application &app);
 
   void start();
 private:
   network::TcpServer server_;
-  router::Router& router_;
+  app::Application &app_;
   HttpParser parser_;
 
   void handle(network::TcpConnection &connection);

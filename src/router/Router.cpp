@@ -17,8 +17,6 @@ void Router::post(const std::string &path, Handler handler) {
 }
 
 bool Router::handle(http::HttpRequest &request, http::HttpResponse &response) {
-  std::cout << "[Router] method=" << request.method << " path=" << request.path << std::endl;
-
   for (auto& route : routes_) {
     request.params.clear();
 

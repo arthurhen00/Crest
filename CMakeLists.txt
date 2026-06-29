@@ -23,6 +23,8 @@ set(SOURCES
     src/http/HttpResponse.cpp
     src/http/HttpServer.cpp
 
+    src/middleware/LoggerMiddleware.cpp
+
     src/network/Socket.cpp
     src/network/TcpServer.cpp
     src/network/TcpConnection.cpp

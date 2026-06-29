@@ -2,8 +2,8 @@
 
 namespace http {
 
-HttpServer::HttpServer(int port, router::Router &router)
-: server_(port), router_(router) {}
+HttpServer::HttpServer(int port, app::Application &app)
+: server_(port), app_(app) {}
 
 void HttpServer::start() {
   server_.start(
@@ -18,7 +18,7 @@ void HttpServer::handle(network::TcpConnection &connection) {
   auto request = parser_.parse(raw);
   HttpResponse response;
 
-  router_.handle(request, response);
+  app_.handle(request, response);
 
   connection.write(response.build());
 }
