@@ -1,6 +1,8 @@
 #include "app/Application.hpp"
 #include "http/HttpServer.hpp"
 
+#include <iostream>
+
 namespace app {
 
 Application::Application() {}
@@ -16,6 +18,11 @@ void Application::post(const std::string &path, router::Handler handler) {
 }
 
 void Application::listen(int port) {
+  std::cout << "[SERVER]\n";
+  std::cout << "  Listening on: 0.0.0.0:" << port << std::endl;
+
+  router_.printRoutes();
+
   server_ = std::make_unique<http::HttpServer>(port, *this);
   server_->start();
 }

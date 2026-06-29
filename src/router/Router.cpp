@@ -5,14 +5,10 @@
 namespace router {
 
 void Router::get(const std::string &path, Handler handler) {
-  std::cout << "[Router] register " << "GET " << path << std::endl;
-
   routes_.push_back({"GET", path, handler});
 }
 
 void Router::post(const std::string &path, Handler handler) {
-  std::cout << "[Router] register " << "POST " << path << std::endl;
-
   routes_.push_back({"POST", path, handler});
 }
 
@@ -30,6 +26,14 @@ bool Router::handle(http::HttpRequest &request, http::HttpResponse &response) {
   response.body("Route not found");
 
   return false;
+}
+
+void Router::printRoutes() const {
+    std::cout << "[ROUTER] registered routes:\n";
+
+    for (const auto& route : routes_) {
+      std::cout << "  " << route.method << "  " << route.path << std::endl;
+    }
 }
 
 }
